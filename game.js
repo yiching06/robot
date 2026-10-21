@@ -11,7 +11,7 @@ const drivers = [
  ['Pierre Gasly','gasly','#ed8ac0'],['Carlos Sainz','sainz','#5aa6ed'],
  ['Fernando Alonso','alonso','#46b6a3'],['Kimi Antonelli','antonelli','#64ded0'],
  ['George Russell','russell','#64ded0'],['Oscar Piastri','piastri','#ffa540'],
- ['Charles Leclerc','leclerc','#ff6662'],['Lando Norris','norris','#ffa540'],
+ ['Lando Norris','norris','#ffa540'],['Charles Leclerc','leclerc','#ff6662'],
  ['Lewis Hamilton','hamilton','#ee4a43'],['Max Verstappen','verstappen','#6583ed']
 ].map(([name,slug,color],i)=>({name,slug,color,r:36.1+i*(106.4/21),points:2**(i+1),image:new Image()}));
 // Prefer the newest available portrait, with older official photos as fallbacks.
