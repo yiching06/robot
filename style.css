@@ -53,5 +53,5 @@ aside{max-height:calc(100vh - 96px);max-height:calc(100dvh - 96px)}
 aside::-webkit-scrollbar{display:none}
 aside:focus-visible{outline:2px solid var(--red);outline-offset:4px}
 
-.brand-logo{display:block;width:80px;height:30px;object-fit:contain;flex-shrink:0}
+.brand-logo{filter:brightness(0) saturate(100%) invert(12%) sepia(100%) saturate(7495%) hue-rotate(1deg) brightness(98%) contrast(115%);display:block;width:80px;height:30px;object-fit:contain;flex-shrink:0}
 @media(max-width:700px){.brand-logo{width:64px;height:24px}}
