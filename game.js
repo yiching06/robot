@@ -1,15 +1,30 @@
 'use strict';
+// 2026 race-driver lineup, checked against F1DB season entrants.
+// Merge order is a game progression, not championship standings.
 const drivers = [
- ['Yuki Tsunoda','tsunoda','#8eabdf'],['Liam Lawson','lawson','#b3c6ed'],['Alex Albon','albon','#5aa6ed'],['Pierre Gasly','gasly','#ed8ac0'],['Carlos Sainz','sainz','#499fe3'],['Fernando Alonso','alonso','#46b6a3'],['George Russell','russell','#64ded0'],['Charles Leclerc','leclerc','#ff6662'],['Lando Norris','norris','#ffa540'],['Lewis Hamilton','hamilton','#ee4a43'],['Max Verstappen','verstappen','#8e82ff']
-].map(([name,slug,color],i)=>({name,slug,color,r:(19+i*5.6)*1.9,points:2**(i+1),image:new Image()}));
-// Public F1 editorial portraits. Initials remain visible if a remote image is unavailable.
-for(const d of drivers){d.image.src=`https://media.formula1.com/content/dam/fom-website/drivers/2024Drivers/${d.slug}.jpg`;}
+ ['Arvid Lindblad','lindblad','#8eabdf'],['Gabriel Bortoleto','bortoleto','#ed343c'],
+ ['Franco Colapinto','colapinto','#ed8ac0'],['Oliver Bearman','bearman','#dce0e3'],
+ ['Liam Lawson','lawson','#8eabdf'],['Isack Hadjar','hadjar','#6583ed'],
+ ['Lance Stroll','stroll','#46b6a3'],['Esteban Ocon','ocon','#dce0e3'],
+ ['Nico Hülkenberg','hulkenberg','#ed343c'],['Valtteri Bottas','bottas','#c2b8a5'],
+ ['Sergio Pérez','perez','#c2b8a5'],['Alex Albon','albon','#5aa6ed'],
+ ['Pierre Gasly','gasly','#ed8ac0'],['Carlos Sainz','sainz','#5aa6ed'],
+ ['Fernando Alonso','alonso','#46b6a3'],['Kimi Antonelli','antonelli','#64ded0'],
+ ['George Russell','russell','#64ded0'],['Oscar Piastri','piastri','#ffa540'],
+ ['Charles Leclerc','leclerc','#ff6662'],['Lando Norris','norris','#ffa540'],
+ ['Lewis Hamilton','hamilton','#ee4a43'],['Max Verstappen','verstappen','#6583ed']
+].map(([name,slug,color],i)=>({name,slug,color,r:36.1+i*(106.4/21),points:2**(i+1),image:new Image()}));
+// Prefer the newest available portrait, with older official photos as fallbacks.
+function photoSources(d){return [2026,2025,2024].flatMap(year=>['png','jpg'].map(ext=>`https://media.formula1.com/content/dam/fom-website/drivers/${year}Drivers/${d.slug}.${ext}`));}
+function loadPortrait(img,d,onMissing=()=>{}){const sources=photoSources(d);let index=0;img.onerror=()=>{if(index<sources.length)img.src=sources[index++];else{img.onerror=null;onMissing();}};img.onerror();}
+for(const d of drivers)loadPortrait(d.image,d);
 const $=id=>document.getElementById(id),canvas=$('game'),ctx=canvas.getContext('2d');
 let W=440;
 let balls=[],score=0,best=0,next=0,aim=220,lastDrop=-Infinity,over=false,clock=0,sound=false,audioContext,accumulator=0,lastTime=0;
 try{best=Number(localStorage.getItem('grid-merge-best'))||0;}catch{}
 $('best').textContent=best;
-function portrait(d){const el=document.createElement('div');el.className='portrait';el.style.setProperty('--c',d.color);const img=document.createElement('img');img.className='face';img.alt=d.name;img.src=d.image.src;img.onerror=()=>{img.remove();el.textContent=d.name.split(' ').map(w=>w[0]).join('');el.style.color=d.color;};el.append(img);return el;}
+function portrait(d){const el=document.createElement('div');el.className='portrait';el.style.setProperty('--c',d.color);const img=document.createElement('img');img.className='face';img.alt=d.name;loadPortrait(img,d,()=>{img.remove();el.textContent=d.name.split(' ').map(w=>w[0]).join('');el.style.color=d.color;});el.append(img);return el;}
+document.querySelector('.ladder-heading>span:last-child').textContent=`01—${drivers.length}`;
 for(const [i,d] of drivers.entries()){const row=document.createElement('div');row.className='driver-row';const num=document.createElement('span');num.className='num';num.textContent=String(i+1).padStart(2,'0');row.append(num,portrait(d));const name=document.createElement('span');name.className='name';name.textContent=d.name;const pts=document.createElement('span');pts.className='pts';pts.textContent=d.points;row.append(name,pts);$('drivers').append(row);}
 function choose(){next=Math.floor(Math.random()*4);$('next-face').replaceChildren(portrait(drivers[next]));$('next-face').firstChild.style.cssText+=';width:100%;height:100%';$('next-name').textContent=drivers[next].name;}
 function updateScore(){ $('score').textContent=String(score).padStart(4,'0');if(score>best){best=score;$('best').textContent=best;try{localStorage.setItem('grid-merge-best',best);}catch{}}}
