@@ -15,7 +15,7 @@ const drivers = [
  ['Lewis Hamilton','hamilton','#ee4a43'],['Max Verstappen','verstappen','#6583ed']
 ].map(([name,slug,color],i)=>({name,slug,color,r:36.1+i*(106.4/21),points:2**(i+1),image:new Image()}));
 // Prefer the newest available portrait, with older official photos as fallbacks.
-function photoSources(d){return [2026,2025,2024].flatMap(year=>['png','jpg'].map(ext=>`https://media.formula1.com/content/dam/fom-website/drivers/${year}Drivers/${d.slug}.${ext}`));}
+function photoSources(d){if(d.slug==='lindblad')return ['assets/arvid-lindblad.webp'];return [2026,2025,2024].flatMap(year=>['png','jpg'].map(ext=>`https://media.formula1.com/content/dam/fom-website/drivers/${year}Drivers/${d.slug}.${ext}`));}
 function loadPortrait(img,d,onMissing=()=>{}){const sources=photoSources(d);let index=0;img.onerror=()=>{if(index<sources.length)img.src=sources[index++];else{img.onerror=null;onMissing();}};img.onerror();}
 for(const d of drivers)loadPortrait(d.image,d);
 const $=id=>document.getElementById(id),canvas=$('game'),ctx=canvas.getContext('2d');
