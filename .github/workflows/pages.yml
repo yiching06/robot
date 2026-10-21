@@ -22,7 +22,7 @@ jobs:
       - name: Prepare website
         run: |
           mkdir public
-          cp index.html style.css game.js public/
+          cp index.html style.css game.js robots.txt sitemap.xml public/
           cp -R assets public/
       - uses: actions/upload-pages-artifact@v3
         with:

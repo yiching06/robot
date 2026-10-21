@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://f1merge.netlify.app/sitemap.xml
