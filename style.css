@@ -23,3 +23,28 @@ footer{display:none}
  .next-card{padding:12px}.next-card strong{font-size:11px}#next-face{width:50px;height:50px;margin-top:10px}.small{font-size:9px}
  .ladder{margin:0}.ladder-heading>span:last-child{display:none}#drivers{display:flex;flex-wrap:wrap;gap:8px}.driver-row{margin:0}.driver-row .num,.driver-row .name,.driver-row .pts,.tip{display:none}
 }
+
+/* Larger type and portraits throughout the game. */
+header{height:64px}.brand{font-size:32px}.edition,header button,.eyebrow{font-size:13px}
+main{grid-template-columns:minmax(0,1fr) 300px}
+.label{font-size:13px;letter-spacing:1.2px}
+.game-top{height:70px}.game-top strong{font-size:48px}.best strong{font-size:38px}
+.game-top button{width:56px;height:56px;font-size:34px}
+.board-meta,.board-footer{height:44px;font-size:12px;letter-spacing:1px}
+canvas{height:calc(100vh - 292px);height:calc(100dvh - 292px)}
+.hint{font-size:14px}
+#overlay{inset:44px 0}#overlay h2{font-size:48px}#overlay p,#again{font-size:18px}
+aside{max-height:calc(100vh - 96px);max-height:calc(100dvh - 96px)}
+#next-face{width:108px;height:108px}.next-card strong{font-size:20px}.small{font-size:14px}
+.ladder-heading>span:last-child{font-size:12px}.driver-row{gap:10px;margin:12px 0}
+.driver-row .portrait{width:44px;height:44px}.driver-row .num{font-size:12px;width:18px}
+.driver-row .name{font-size:15px}.driver-row .pts{font-size:13px}
+.tip>span{font-size:12px}.tip p{font-size:15px}
+@media(max-width:900px) and (min-width:701px){main{grid-template-columns:minmax(0,1fr) 250px;gap:16px;padding:16px}.edition{display:none}.driver-row .name{font-size:14px}}
+@media(max-width:700px){
+ .brand{font-size:28px}header button{font-size:12px}
+ .game-top .label{font-size:11px;letter-spacing:.5px}.game-top strong{font-size:40px}.best strong{font-size:32px}
+ .game-top button{width:48px;height:48px}.board-meta,.board-footer{font-size:10px;letter-spacing:0}.hint{font-size:12px}
+ aside{grid-template-columns:140px minmax(0,1fr);max-height:none}#next-face{width:80px;height:80px}
+ .next-card strong{font-size:16px}.small{font-size:12px}.driver-row .portrait{width:42px;height:42px}.driver-row{margin:0}
+}
